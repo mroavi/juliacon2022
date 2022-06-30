@@ -7,6 +7,7 @@ subtitle: Exact Bayesian inference in discrete graphical models
 #title-slide-attributes:
   #data-background-image: figures/junction-trees-logo-short.png
   #data-background-size: contain  
+output-file: index
 execute:
   eval: true
 format:
