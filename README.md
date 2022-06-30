@@ -1,3 +1,19 @@
+JunctionTrees: Bayesian inference in discrete graphical models
+==============================================================
+
+Abstract:
+---------
+
+JunctionTrees.jl implements the junction tree algorithm: an efficient method to
+perform Bayesian inference in discrete probabilistic graphical models. It
+exploits Julia's metaprogramming capabilities to separate the algorithm into a
+compilation and a runtime phase. This opens a wide range of optimization
+possibilities in the compilation stage and a runtime performance comparable to
+those of analog libraries written in C++ such as libdai and Merlin.
+
+Description:
+------------
+
 JunctionTrees.jl encapsulates the result of the research we have been
 conducting in the context of improving the efficiency of Bayesian inference in
 probabilistic graphical models.
