@@ -1,0 +1,22 @@
+\usepackage{tikz}
+\usetikzlibrary{backgrounds}	% drawing the background after the foreground
+\usetikzlibrary{fit, positioning}
+\usetikzlibrary{shadows}
+\usepackage{bm}
+
+\definecolor{bblue}{HTML}{2B83BA}
+\definecolor{ggreen}{HTML}{ABDDA4}
+\definecolor{rred}{HTML}{D7191C}
+\definecolor{yyellow}{HTML}{FDAE61}
+
+\tikzset {
+  every node/.style={node distance=1.4cm},
+  mybox/.style= {
+    rectangle,rounded corners,drop shadow,minimum height=0.7cm,font=\small,
+    minimum width=\columnwidth*0.8,align=center,fill=white,draw=gray,line width=1pt
+  },
+  myarrow/.style= {draw=gray,line width=2pt,-stealth},
+  mylabel/.style={text=black,right,xshift=2mm,text width=3.5cm,font=\small},
+  surrbox/.style={thick,draw=black,rounded corners=2mm},
+  surrboxlabel/.style={anchor=center,rotate=90,yshift=3mm,font=\small},
+}

@@ -1,0 +1,33 @@
+/*-- scss:defaults --*/
+
+// See:
+// https://quarto.org/docs/presentations/revealjs/themes.html
+// https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/revealjs/quarto.scss
+
+// headings
+$presentation-h1-font-size: 2.0em;
+$presentation-h2-font-size: 1.4em;
+
+// fonts
+$presentation-font-smaller: 0.7;
+
+/*-- scss:rules --*/
+
+// Fixes: https://github.com/quarto-dev/quarto-cli/issues/892
+// https://github.com/quarto-dev/quarto-cli/commit/d987a8c5323da914ee7f3e3c553c111c15569ec6
+// https://github.com/quarto-dev/quarto-cli/blob/main/src/resources/formats/revealjs/quarto.scss
+
+// .reveal .columns > .column > :not(ul, ol) {
+//   margin-left: 0.25em;
+//   margin-right: 0.25em;
+// }
+
+// .reveal .columns > .column:first-child > :not(ul, ol) {
+//   margin-left: -0.5em;
+//   margin-right: 0.5em;
+// }
+
+.reveal .columns > .column:last-child > :not(ul, ol) {
+  margin-left: 0.00em;
+  margin-right: 0;
+}

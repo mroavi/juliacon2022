@@ -1,0 +1,603 @@
+---
+title: JunctionTrees.jl
+subtitle: Exact Bayesian inference in discrete graphical models
+#author: Martin Roa Villescas and Patrick Wijnings
+#date: "27/07/2022"
+#institute: JuliaCon 2022
+#title-slide-attributes:
+  #data-background-image: figures/junction-trees-logo-short.png
+  #data-background-size: contain  
+execute:
+  eval: true
+format:
+  revealjs:
+    theme: mytheme.scss
+    center: true
+    incremental: true   
+    code-fold: false
+    logo: figures/tue-logo-short.svg
+    auto-stretch: false
+    echo: true
+    slide-number: true
+    transition: none
+jupyter: julia-1.7
+---
+
+
+## Outline
+
+::: {.nonincremental}
+
+- A motivating example
+- The inference problem
+- The junction tree algorithm
+- JunctionTrees.jl ![](figures/junction-trees-logo-short.png){width=5.1% .absolute top=300 left=320}
+:::
+
+# A motivating example
+
+
+## Patient diagnosis
+
+:::: {.columns}
+
+::: {.column width="85%"}
+
+
+![](figures/asia-medical-knowledge.png){width=100% fig-align="center"}
+
+:::
+
+::: {.column width="15%"}
+
+![](figures/motivating-example.svg){width=100% fig-align="center"}
+:::
+
+::::
+
+::: footer
+"Local Computations with Probabilities on Graphical Structures and their Application to Expert Systems" by S. L. LAURITZEN and D. J. SPIEGELHALTER
+:::
+
+## The ASIA network {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+| **Random variable**  | **Meaning**                     |
+|        :---:         | :---                            |
+|        ``A``         | Recent trip to Asia             |
+|        ``T``         | Patient has tuberculosis        |
+|        ``S``         | Patient is a smoker             |
+|        ``L``         | Patient has lung cancer         |
+|        ``B``         | Patient has bronchitis          |
+|        ``E``         | Patient has ``T`` and/or ``L``  |
+|        ``X``         | Chest X-Ray is positive         |
+|        ``D``         | Patient has dyspnoea            |
+
+:::
+
+::: {.column width="40%"}
+
+![](figures/bayesian-network/output-1.svg){width=100% fig-align="center" .fragment}
+
+::: {.fragment}
+
+```{=tex}
+\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}
+```
+
+:::
+
+:::
+
+::::
+
+
+## The ASIA network {.smaller}
+
+:::: {.columns}
+
+::: {.column width="60%"}
+
+| **Random variable**  | **Meaning**                     |
+|        :---:         | :---                            |
+|        ``A``         | Recent trip to Asia             |
+|        ``T``         | Patient has tuberculosis        |
+|        ``S``         | Patient is a smoker             |
+|        ``L``         | Patient has lung cancer         |
+|        ``B``         | Patient has bronchitis          |
+|        ``E``         | Patient has ``T`` and/or ``L``  |
+|        ``X``         | Chest X-Ray is positive         |
+|        ``D``         | Patient has dyspnoea            |
+
+:::
+
+::: {.column width="40%"}
+
+![](figures/bayesian-network/output-2.svg){width=100% fig-align="center"}
+
+```{=tex}
+\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}
+```
+
+:::
+
+::::
+
+
+# The inference problem
+
+
+## The inference problem {visibility="hidden"}
+
+Given a set of *random variables* $\mathcal{V}$ and their *joint distribution* $P(\mathcal{V})$,
+compute one or more conditional distributions given observations.
+
+
+## The inference problem
+
+![](figures/the-inference-problem/output.svg){width=100% fig-align="center"}
+
+
+# The junction tree algorithm
+
+::: {.r-fit-text}
+An efficient method to perform *Bayesian inference* in general graphs.
+:::
+
+## Overview
+
+![](figures/jta-overview/output-1-0.svg){width=55% fig-align="center"}
+
+
+## Overview
+
+![](figures/jta-overview/output-1-1.svg){width=55% fig-align="center"}
+
+
+## Bayesian network {auto-animate=true}
+
+![](figures/bayesian-network/output-1.svg){width=60% fig-align="center"}
+
+
+## Moralization {auto-animate=true}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](figures/bayesian-network/output-1.svg){width=80% fig-align="center"}
+
+:::
+
+::: {.column width="50%" }
+
+![](figures/moral-graph/output.svg){width=80% fig-align="center"}
+
+:::
+
+::::
+
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=200 left=490}
+
+
+## Moral graph {auto-animate=true}
+
+![](figures/moral-graph/output.svg){width=60% fig-align="center"}
+
+
+## Triangulation {auto-animate=true}
+
+::: {.notes}
+- Consists of removing every cycle of length greater than three in a graph.
+- We do so by connecting two nonadjacent nodes in every cycle of length $>$ three.
+- An optimal triangulation minimizes the sum of the state space sizes of the cliques.
+- This is equivalent to minimizing the size of the largest clique.
+- This problem is *NP-complete*.
+
+- This is the hardest of all steps. And when I say hard, I mean it literally.
+This problem is NP-hard.
+- The goal is to get rid of all cycles of length greater than 3!
+- Note that a byproduct of triangulation is the set of maximal cliques of the
+triangulated graph, which are extremely useful for the junction algorithm:
+these maximal cliques become the nodes of the final junction tree.
+- The overall goal is to minimize the state space size of the system.
+- This is equivalent to minimizing the number of vars in the largest
+clique/cluster.
+- The enclosed sets of nodes are maximal cliques which, in this case, become
+the clusters of the junction tree.
+- A clique is a set of variables in which all variables are connected to each
+other.
+- A maximal clique is a one that is not contained in a larger one.
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](figures/moral-graph/output.svg){width=80% fig-align="center"}
+
+:::
+
+::: {.column width="50%"}
+
+![](figures/triangulated-graph/output.svg){width=80% fig-align="center"}
+
+:::
+
+::::
+
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=200 left=490}
+
+
+## Triangulated graph {auto-animate=true}
+
+![](figures/triangulated-graph/output.svg){width=60% fig-align="center"}
+
+
+## Connection of clusters {auto-animate=true}
+
+::: {.notes}
+Consists of transforming the triangulated graph into a *junction tree*.
+A junction tree is a tree that satisfies the *running intersection
+property*: *All clusters on the path between two given clusters contain their
+common variables.*
+We now present an *optimal* algorithm to perform this transformation
+\cite{jensen2013optimal}.
+The clusters of the triangulated graphs correspond to the nodes of the
+junction tree.
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](figures/triangulated-graph/output.svg){width=80% fig-align="center"}
+
+:::
+
+::: {.column width="50%"}
+
+![](figures/junction-tree/output-1.svg){width=80% fig-align="center"}
+
+:::
+
+::::
+
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=200 left=490}
+
+
+## Junction tree {auto-animate=true}
+
+![](figures/junction-tree/output-1.svg){width=60% fig-align="center"}
+
+
+## Overview
+
+![](figures/jta-overview/output-1-2.svg){width=55% fig-align="center"}
+
+
+## Initialization {.smaller}
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![](figures/bayesian-network/output-1.svg){width=80% fig-align="center"}
+
+```{=tex}
+\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}
+```
+
+:::
+
+::: {.column width="50%" .fragment}
+
+![](figures/junction-tree/output-2.svg){width=80% fig-align="center"}
+
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=200 left=490}
+
+:::
+
+::::
+
+
+## Overview
+
+![](figures/jta-overview/output-1-3.svg){width=55% fig-align="center"}
+
+
+## Observation entry {.smaller}
+
+
+:::: {.columns}
+
+::: {.column width="33%"}
+
+| F | B | E | Element |
+|---|---|---|---------|
+| 0 | 0 | 0 | 0.25    |
+| 0 | 0 | 1 | 0.35    |
+| 0 | 1 | 0 | 0.08    |
+| 0 | 1 | 1 | 0.16    |
+| 1 | 0 | 0 | 0.05    |
+| 1 | 0 | 1 | 0.07    |
+| 1 | 1 | 0 | 0.00    |
+| 1 | 1 | 1 | 0.00    |
+| 2 | 0 | 0 | 0.15    |
+| 2 | 0 | 1 | 0.21    |
+| 2 | 1 | 0 | 0.09    |
+| 2 | 1 | 1 | 0.18    |
+
+:::
+
+::: {.column width="33%"}
+
+| F | B | E | Element |
+|---|---|---|---------|
+| 0 | 0 | 0 | 0.25    |
+| 0 | 0 | 1 | **0.00**|
+| 0 | 1 | 0 | 0.08    |
+| 0 | 1 | 1 | **0.00**|
+| 1 | 0 | 0 | 0.05    |
+| 1 | 0 | 1 | **0.00**|
+| 1 | 1 | 0 | 0.00    |
+| 1 | 1 | 1 | **0.00**|
+| 2 | 0 | 0 | 0.15    |
+| 2 | 0 | 1 | **0.00**|
+| 2 | 1 | 0 | 0.09    |
+| 2 | 1 | 1 | **0.00**|
+
+:::
+
+
+::: {.column width="33%"}
+
+| F | B | Element |
+|---|---|---------|
+| 0 | 0 | 0.25    |
+| 0 | 1 | 0.08    |
+| 1 | 0 | 0.05    |
+| 1 | 1 | 0.00    |
+| 2 | 0 | 0.15    |
+| 2 | 1 | 0.09    |
+
+:::
+
+::::
+
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=300 left=280}
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=300 left=625}
+
+
+## Overview
+
+![](figures/jta-overview/output-1-4.svg){width=55% fig-align="center"}
+
+
+## Message passing
+
+::: {.notes}
+
+A cluster passes a message to a neighbor only after it has received messages
+from all its *other* neighbors.
+
+:::
+
+![](figures/message-passing/output-00.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-01.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-02.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-03.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-04.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-05.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-06.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-07.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-08.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-09.svg){width=60% fig-align="center"}
+
+
+## Message passing
+
+![](figures/message-passing/output-10.svg){width=60% fig-align="center"}
+
+
+## Overview
+
+![](figures/jta-overview/output-1-5.svg){width=55% fig-align="center"}
+
+
+## Marginalization
+
+
+
+## Overview
+
+![](figures/jta-overview/output-1-6.svg){width=55% fig-align="center"}
+
+
+## Normalization
+
+::: {.notes}
+\begin{gather*}
+P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e})}{\sum_{V} P(V, {\bf E=e})}
+\end{gather*}
+:::
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+| $V$ | $\phi(V, {\bf E} = {\bf e})$ |
+|---  |------|
+| 0   | 0.25 |
+| 1   | 0.05 |
+| 2   | 0.15 |
+
+:::
+
+::: {.column width="50%"}
+
+| $V$ | $P(v \mid {\bf E} = {\bf e})$ |
+|---  |------|
+| 0   | 0.55 |
+| 1   | 0.11 |
+| 2   | 0.33 |
+
+:::
+
+::::
+
+![](figures/right-arrow-unfilled.svg){width=5% .absolute top=180 left=410}
+
+
+
+# JunctionTrees.jl
+
+![](figures/junction-trees-logo-short.png){.absolute top=-10 left=580}
+
+
+## Features
+
+- Posterior marginal computation of discrete variables given evidence.
+- Metaprogramming-based design that separates the algorithm into a compilation and a runtime phase.
+
+
+## Compiled-based implementation {auto-animate=true}
+
+![](figures/jta-overview/output-2.svg){width=55% fig-align="center"}
+
+
+## Compiled-based implementation {auto-animate=true}
+
+![](figures/jta-overview/output-3.svg){width=55% fig-align="center"}
+
+
+## Basic usage
+
+**Step 1**: Generate the algorithm
+
+```{julia}
+#| output-location: fragment
+using JunctionTrees
+algo = compile_algo("problems/asia/asia.uai")
+```
+
+##
+
+**Step 2**: Evaluate the algorithm
+
+```{julia}
+#| output-location: fragment
+eval(algo)
+```
+
+. . .
+
+**Step 3**: Run the algorithm
+
+```{julia}
+#| output-location: fragment
+obsvars, obsvals = Int64[], Int64[]
+marginals = run_algo(obsvars, obsvals)
+```
+
+. . .
+
+These are the *posterior marginals* for each variable.
+
+##
+
+We can also generate an algorithm that takes online evidence for a subset of the variables:
+
+```{julia}
+#| output-location: fragment
+#| code-line-numbers: "|3,5,6"
+algo = compile_algo(
+         "problems/asia/asia.uai",
+         uai_evid_filepath = "problems/asia/asia.uai.evid")
+eval(algo)
+obsvars, obsvals = JunctionTrees.read_uai_evid_file("problems/asia/asia.uai.evid")
+marginals = run_algo(obsvars, obsvals)
+```
+
+##
+
+An existing junction tree can be used to generate the algo:
+
+```{julia}
+#| output-location: fragment
+#| code-line-numbers: "|4"
+algo = compile_algo(
+         "problems/asia/asia.uai",
+         uai_evid_filepath = "problems/asia/asia.uai.evid",
+         td_filepath = "problems/asia/asia.td")
+eval(algo)
+obsvars, obsvals = JunctionTrees.read_uai_evid_file("problems/asia/asia.uai.evid")
+marginals = run_algo(obsvars, obsvals)
+```
+
+##
+
+You can specify up to which stage the algo should be generated:
+
+```{julia}
+#| code-line-numbers: "|3"
+#| output-location: fragment
+forward_pass_expr = compile_algo(
+                        "problems/asia/asia.uai",
+                        last_stage = ForwardPass)
+```
+
+## Benchmarks
+
+
+
+
+# The end
+
+
+# Questions?
