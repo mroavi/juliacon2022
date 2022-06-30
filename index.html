@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-99.9.9">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>JunctionTrees.jl</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="slides_files/libs/clipboard/clipboard.min.js"></script>
+<script src="slides_files/libs/quarto-html/quarto.js"></script>
+<script src="slides_files/libs/quarto-html/popper.min.js"></script>
+<script src="slides_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="slides_files/libs/quarto-html/anchor.min.js"></script>
+<link href="slides_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="slides_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="slides_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="slides_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="slides_files/libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+</head>
+
+<body class="fullcontent">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">JunctionTrees.jl</h1>
+<p class="subtitle lead">Exact Bayesian inference in discrete graphical models</p>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="outline" class="level2">
+<h2 class="anchored" data-anchor-id="outline">Outline</h2>
+<div class="nonincremental">
+<ul>
+<li>A motivating example</li>
+<li>The inference problem</li>
+<li>The junction tree algorithm</li>
+<li>JunctionTrees.jl <img src="figures/junction-trees-logo-short.png" class="absolute img-fluid" data-top="300" data-left="320" style="width:5.1%"></li>
+</ul>
+</div>
+</section>
+<section id="a-motivating-example" class="level1">
+<h1>A motivating example</h1>
+<section id="patient-diagnosis" class="level2">
+<h2 class="anchored" data-anchor-id="patient-diagnosis">Patient diagnosis</h2>
+<div class="columns">
+<div class="column" style="width:85%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/asia-medical-knowledge.png" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:15%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/motivating-example.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="footer">
+<p>“Local Computations with Probabilities on Graphical Structures and their Application to Expert Systems” by S. L. LAURITZEN and D. J. SPIEGELHALTER</p>
+</div>
+</section>
+<section id="the-asia-network" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="the-asia-network">The ASIA network</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Random variable</strong></th>
+<th style="text-align: left;"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>A</code></td>
+<td style="text-align: left;">Recent trip to Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>T</code></td>
+<td style="text-align: left;">Patient has tuberculosis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>S</code></td>
+<td style="text-align: left;">Patient is a smoker</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>L</code></td>
+<td style="text-align: left;">Patient has lung cancer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>B</code></td>
+<td style="text-align: left;">Patient has bronchitis</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>E</code></td>
+<td style="text-align: left;">Patient has <code>T</code> and/or <code>L</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>X</code></td>
+<td style="text-align: left;">Chest X-Ray is positive</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>D</code></td>
+<td style="text-align: left;">Patient has dyspnoea</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/bayesian-network/output-1.svg" class="fragment img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+<div class="fragment">
+<span class="math display">\[\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}\]</span>
+</div>
+</div>
+</div>
+</section>
+<section id="the-asia-network-1" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="the-asia-network-1">The ASIA network</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;"><strong>Random variable</strong></th>
+<th style="text-align: left;"><strong>Meaning</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><code>A</code></td>
+<td style="text-align: left;">Recent trip to Asia</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>T</code></td>
+<td style="text-align: left;">Patient has tuberculosis</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>S</code></td>
+<td style="text-align: left;">Patient is a smoker</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>L</code></td>
+<td style="text-align: left;">Patient has lung cancer</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>B</code></td>
+<td style="text-align: left;">Patient has bronchitis</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>E</code></td>
+<td style="text-align: left;">Patient has <code>T</code> and/or <code>L</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;"><code>X</code></td>
+<td style="text-align: left;">Chest X-Ray is positive</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;"><code>D</code></td>
+<td style="text-align: left;">Patient has dyspnoea</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/bayesian-network/output-2.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+<span class="math display">\[\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}\]</span>
+</div>
+</div>
+</section>
+</section>
+<section id="the-inference-problem" class="level1">
+<h1>The inference problem</h1>
+<section id="the-inference-problem-1" class="level2" data-visibility="hidden">
+<h2 data-visibility="hidden" class="anchored" data-anchor-id="the-inference-problem-1">The inference problem</h2>
+<p>Given a set of <em>random variables</em> <span class="math inline">\(\mathcal{V}\)</span> and their <em>joint distribution</em> <span class="math inline">\(P(\mathcal{V})\)</span>, compute one or more conditional distributions given observations.</p>
+</section>
+<section id="the-inference-problem-2" class="level2">
+<h2 class="anchored" data-anchor-id="the-inference-problem-2">The inference problem</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/the-inference-problem/output.svg" class="img-fluid figure-img" style="width:100.0%"></p>
+</figure>
+</div>
+</section>
+</section>
+<section id="the-junction-tree-algorithm" class="level1">
+<h1>The junction tree algorithm</h1>
+<div class="r-fit-text">
+<p>An efficient method to perform <em>Bayesian inference</em> in general graphs.</p>
+</div>
+<section id="overview" class="level2">
+<h2 class="anchored" data-anchor-id="overview">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-0.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="overview-1" class="level2">
+<h2 class="anchored" data-anchor-id="overview-1">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-1.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="bayesian-network" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="bayesian-network">Bayesian network</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/bayesian-network/output-1.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="moralization" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="moralization">Moralization</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/bayesian-network/output-1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/moral-graph/output.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="200" data-left="490" style="width:5.0%"></p>
+</section>
+<section id="moral-graph" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="moral-graph">Moral graph</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/moral-graph/output.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="triangulation" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="triangulation">Triangulation</h2>
+<div class="notes">
+<ul>
+<li><p>Consists of removing every cycle of length greater than three in a graph.</p></li>
+<li><p>We do so by connecting two nonadjacent nodes in every cycle of length <span class="math inline">\(&gt;\)</span> three.</p></li>
+<li><p>An optimal triangulation minimizes the sum of the state space sizes of the cliques.</p></li>
+<li><p>This is equivalent to minimizing the size of the largest clique.</p></li>
+<li><p>This problem is <em>NP-complete</em>.</p></li>
+<li><p>This is the hardest of all steps. And when I say hard, I mean it literally. This problem is NP-hard.</p></li>
+<li><p>The goal is to get rid of all cycles of length greater than 3!</p></li>
+<li><p>Note that a byproduct of triangulation is the set of maximal cliques of the triangulated graph, which are extremely useful for the junction algorithm: these maximal cliques become the nodes of the final junction tree.</p></li>
+<li><p>The overall goal is to minimize the state space size of the system.</p></li>
+<li><p>This is equivalent to minimizing the number of vars in the largest clique/cluster.</p></li>
+<li><p>The enclosed sets of nodes are maximal cliques which, in this case, become the clusters of the junction tree.</p></li>
+<li><p>A clique is a set of variables in which all variables are connected to each other.</p></li>
+<li><p>A maximal clique is a one that is not contained in a larger one.</p></li>
+</ul>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/moral-graph/output.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/triangulated-graph/output.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="200" data-left="490" style="width:5.0%"></p>
+</section>
+<section id="triangulated-graph" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="triangulated-graph">Triangulated graph</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/triangulated-graph/output.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="connection-of-clusters" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="connection-of-clusters">Connection of clusters</h2>
+<div class="notes">
+<p>Consists of transforming the triangulated graph into a <em>junction tree</em>. A junction tree is a tree that satisfies the <em>running intersection property</em>: <em>All clusters on the path between two given clusters contain their common variables.</em> We now present an <em>optimal</em> algorithm to perform this transformation . The clusters of the triangulated graphs correspond to the nodes of the junction tree.</p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/triangulated-graph/output.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/junction-tree/output-1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="200" data-left="490" style="width:5.0%"></p>
+</section>
+<section id="junction-tree" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="junction-tree">Junction tree</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/junction-tree/output-1.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="overview-2" class="level2">
+<h2 class="anchored" data-anchor-id="overview-2">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-2.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="initialization" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="initialization">Initialization</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/bayesian-network/output-1.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<span class="math display">\[\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}\]</span>
+</div><div class="column fragment" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/junction-tree/output-2.svg" class="img-fluid figure-img" style="width:80.0%"></p>
+</figure>
+</div>
+<p><img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="200" data-left="490" style="width:5.0%"></p>
+</div>
+</div>
+</section>
+<section id="overview-3" class="level2">
+<h2 class="anchored" data-anchor-id="overview-3">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-3.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="observation-entry" class="level2 smaller">
+<h2 class="smaller anchored" data-anchor-id="observation-entry">Observation entry</h2>
+<div class="columns">
+<div class="column" style="width:33%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th>F</th>
+<th>B</th>
+<th>E</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td>0.35</td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0.08</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td>0.16</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.05</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td>0.07</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td>0.21</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0.09</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td>0.18</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:33%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th>F</th>
+<th>B</th>
+<th>E</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr class="odd">
+<td>0</td>
+<td>1</td>
+<td>0</td>
+<td>0.08</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0.05</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0.00</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0</td>
+<td>0</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>0</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>1</td>
+<td>0</td>
+<td>0.09</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1</td>
+<td>1</td>
+<td><strong>0.00</strong></td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:33%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th>F</th>
+<th>B</th>
+<th>Element</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>1</td>
+<td>0.08</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0</td>
+<td>0.05</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>1</td>
+<td>0.00</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0</td>
+<td>0.15</td>
+</tr>
+<tr class="even">
+<td>2</td>
+<td>1</td>
+<td>0.09</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="300" data-left="280" style="width:5.0%"> <img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="300" data-left="625" style="width:5.0%"></p>
+</section>
+<section id="overview-4" class="level2">
+<h2 class="anchored" data-anchor-id="overview-4">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-4.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing">Message passing</h2>
+<div class="notes">
+<p>A cluster passes a message to a neighbor only after it has received messages from all its <em>other</em> neighbors.</p>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-00.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-1" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-1">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-01.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-2" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-2">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-02.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-3" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-3">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-03.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-4" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-4">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-04.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-5" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-5">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-05.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-6" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-6">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-06.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-7" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-7">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-07.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-8" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-8">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-08.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-9" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-9">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-09.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="message-passing-10" class="level2">
+<h2 class="anchored" data-anchor-id="message-passing-10">Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/message-passing/output-10.svg" class="img-fluid figure-img" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="overview-5" class="level2">
+<h2 class="anchored" data-anchor-id="overview-5">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-5.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="marginalization" class="level2">
+<h2 class="anchored" data-anchor-id="marginalization">Marginalization</h2>
+</section>
+<section id="overview-6" class="level2">
+<h2 class="anchored" data-anchor-id="overview-6">Overview</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-1-6.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="normalization" class="level2">
+<h2 class="anchored" data-anchor-id="normalization">Normalization</h2>
+<div class="notes">
+<p><span class="math display">\[\begin{gather*}
+P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e})}{\sum_{V} P(V, {\bf E=e})}
+\end{gather*}\]</span></p>
+</div>
+<div class="columns">
+<div class="column" style="width:50%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(V\)</span></th>
+<th><span class="math inline">\(\phi(V, {\bf E} = {\bf e})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.25</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.05</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.15</td>
+</tr>
+</tbody>
+</table>
+</div><div class="column" style="width:50%;">
+<table class="table">
+<thead>
+<tr class="header">
+<th><span class="math inline">\(V\)</span></th>
+<th><span class="math inline">\(P(v \mid {\bf E} = {\bf e})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>0</td>
+<td>0.55</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>0.11</td>
+</tr>
+<tr class="odd">
+<td>2</td>
+<td>0.33</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<p><img src="figures/right-arrow-unfilled.svg" class="absolute img-fluid" data-top="180" data-left="410" style="width:5.0%"></p>
+</section>
+</section>
+<section id="junctiontrees.jl" class="level1">
+<h1>JunctionTrees.jl</h1>
+<p><img src="figures/junction-trees-logo-short.png" class="absolute img-fluid" data-top="-10" data-left="580"></p>
+<section id="features" class="level2">
+<h2 class="anchored" data-anchor-id="features">Features</h2>
+<ul>
+<li>Posterior marginal computation of discrete variables given evidence.</li>
+<li>Metaprogramming-based design that separates the algorithm into a compilation and a runtime phase.</li>
+</ul>
+</section>
+<section id="compiled-based-implementation" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="compiled-based-implementation">Compiled-based implementation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-2.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="compiled-based-implementation-1" class="level2" data-auto-animate="true">
+<h2 data-auto-animate="true" class="anchored" data-anchor-id="compiled-based-implementation-1">Compiled-based implementation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="figures/jta-overview/output-3.svg" class="img-fluid figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</section>
+<section id="basic-usage" class="level2">
+<h2 class="anchored" data-anchor-id="basic-usage">Basic usage</h2>
+<p><strong>Step 1</strong>: Generate the algorithm</p>
+<div class="cell" data-output-location="fragment" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">JunctionTrees</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(<span class="st">"problems/asia/asia.uai"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>:(function run_algo(obsvars::Vector{Int64}, obsvals::Vector{Int64})
+      begin
+          pot_1 = Factor{Float64, 2}((1, 7), [0.128 0.872; 0.92 0.08])
+          pot_2 = Factor{Float64, 2}((4, 8), [0.127 0.372; 0.372 0.127])
+          pot_3 = Factor{Float64, 2}((3, 4), [0.206 0.293; 0.293 0.206])
+          pot_4 = Factor{Float64, 3}((4, 5, 7), [0.027965999999999998 0.14867999999999998; 0.011455 0.060899999999999996;;; 0.060899999999999996 0.011455; 0.14867999999999998 0.027965999999999998])
+          pot_5 = Factor{Float64, 3}((2, 4, 6), [0.014457 0.07686; 0.13272 0.024964;;; 0.024964 0.13272; 0.07686 0.014457])
+          pot_6 = Factor{Float64, 3}((4, 5, 6), [0.007124 0.10642499999999999; 0.129602 0.00585;;; 0.00585 0.129602; 0.10642499999999999 0.007124])
+      end
+      begin
+          msg_1_4 = sum(pot_1, 1)
+          msg_2_4 = sum(pot_2, 8)
+          msg_3_5 = sum(pot_3, 3)
+          msg_5_6 = sum(prod(msg_3_5, pot_5), 2)
+          msg_6_4 = sum(prod(msg_5_6, pot_6), 6)
+      end
+      begin
+          msg_4_1 = sum(prod(msg_2_4, msg_6_4, pot_4), 4, 5)
+          msg_4_2 = sum(prod(msg_1_4, msg_6_4, pot_4), 5, 7)
+          msg_4_6 = sum(prod(msg_1_4, msg_2_4, pot_4), 7)
+          msg_6_5 = sum(prod(msg_4_6, pot_6), 5)
+          msg_5_3 = sum(prod(msg_6_5, pot_5), 2, 6)
+      end
+      begin
+          edge_mar_2_4 = prod(msg_2_4, msg_4_2)
+          edge_mar_4_6 = prod(msg_6_4, msg_4_6)
+          edge_mar_5_6 = prod(msg_5_6, msg_6_5)
+          edge_mar_1_4 = prod(msg_1_4, msg_4_1)
+      end
+      begin
+          bag_mar_1 = prod(msg_4_1, pot_1)
+          bag_mar_5 = prod(msg_3_5, msg_6_5, pot_5)
+          bag_mar_3 = prod(msg_5_3, pot_3)
+          bag_mar_2 = prod(msg_4_2, pot_2)
+      end
+      begin
+          unnorm_mar_1 = sum(bag_mar_1, 7)
+          unnorm_mar_2 = sum(bag_mar_5, 4, 6)
+          unnorm_mar_3 = sum(bag_mar_3, 4)
+          unnorm_mar_4 = edge_mar_2_4
+          unnorm_mar_5 = sum(edge_mar_4_6, 4)
+          unnorm_mar_6 = sum(edge_mar_5_6, 4)
+          unnorm_mar_7 = edge_mar_1_4
+          unnorm_mar_8 = sum(bag_mar_2, 4)
+      end
+      begin
+          norm.([unnorm_mar_1, unnorm_mar_2, unnorm_mar_3, unnorm_mar_4, unnorm_mar_5, unnorm_mar_6, unnorm_mar_7, unnorm_mar_8])
+      end
+  end)</code></pre>
+</div>
+</div>
+</section>
+<section id="section" class="level2">
+<h2 class="anchored" data-anchor-id="section"></h2>
+<p><strong>Step 2</strong>: Evaluate the algorithm</p>
+<div class="cell" data-output-location="fragment" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">eval</span>(algo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>run_algo (generic function with 1 method)</code></pre>
+</div>
+</div>
+<div class="incremental">
+<p><strong>Step 3</strong>: Run the algorithm</p>
+<div class="cell" data-output-location="fragment" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>obsvars, obsvals <span class="op">=</span> <span class="dt">Int64</span>[], <span class="dt">Int64</span>[]</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>(obsvars, obsvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>8-element Vector{Factor{Float64, 1}}:
+ Factor{Float64, 1}((1,), [0.5, 0.5])
+ Factor{Float64, 1}((2,), [0.48684951517645886, 0.5131504848235411])
+ Factor{Float64, 1}((3,), [0.49657168997454143, 0.5034283100254586])
+ Factor{Float64, 1}((4,), [0.5196635253184346, 0.4803364746815654])
+ Factor{Float64, 1}((5,), [0.47979130632828215, 0.5202086936717178])
+ Factor{Float64, 1}((6,), [0.5016289095878703, 0.4983710904121298])
+ Factor{Float64, 1}((7,), [0.524, 0.476])
+ Factor{Float64, 1}((8,), [0.4903455637214099, 0.5096544362785901])</code></pre>
+</div>
+</div>
+</div>
+<div class="incremental">
+<p>These are the <em>posterior marginals</em> for each variable.</p>
+</div>
+</section>
+<section id="section-1" class="level2">
+<h2 class="anchored" data-anchor-id="section-1"></h2>
+<p>We can also generate an algorithm that takes online evidence for a subset of the variables:</p>
+<div class="cell" data-output-location="fragment" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(</span>
+<span id="cb7-2"><a href="#cb7-2"></a>         <span class="st">"problems/asia/asia.uai"</span>,</span>
+<span id="cb7-3"><a href="#cb7-3"></a>         uai_evid_filepath <span class="op">=</span> <span class="st">"problems/asia/asia.uai.evid"</span>)</span>
+<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">eval</span>(algo)</span>
+<span id="cb7-5"><a href="#cb7-5"></a>obsvars, obsvals <span class="op">=</span> JunctionTrees.<span class="fu">read_uai_evid_file</span>(<span class="st">"problems/asia/asia.uai.evid"</span>)</span>
+<span id="cb7-6"><a href="#cb7-6"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>(obsvars, obsvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>8-element Vector{Factor{Float64, 1}}:
+ Factor{Float64, 1}((1,), [1.0, 0.0])
+ Factor{Float64, 1}((2,), [0.2260315661762265, 0.7739684338237736])
+ Factor{Float64, 1}((3,), [0.42857687446961373, 0.5714231255303863])
+ Factor{Float64, 1}((4,), [0.909656777467388, 0.09034322253261202])
+ Factor{Float64, 1}((5,), [0.07898554850587863, 0.9210144514941213])
+ Factor{Float64, 1}((6,), [0.5339356164139644, 0.4660643835860355])
+ Factor{Float64, 1}((7,), [1.0, 0.0])
+ Factor{Float64, 1}((8,), [0.2988659108627053, 0.7011340891372946])</code></pre>
+</div>
+</div>
+</section>
+<section id="section-2" class="level2">
+<h2 class="anchored" data-anchor-id="section-2"></h2>
+<p>An existing junction tree can be used to generate the algo:</p>
+<div class="cell" data-output-location="fragment" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(</span>
+<span id="cb9-2"><a href="#cb9-2"></a>         <span class="st">"problems/asia/asia.uai"</span>,</span>
+<span id="cb9-3"><a href="#cb9-3"></a>         uai_evid_filepath <span class="op">=</span> <span class="st">"problems/asia/asia.uai.evid"</span>,</span>
+<span id="cb9-4"><a href="#cb9-4"></a>         td_filepath <span class="op">=</span> <span class="st">"problems/asia/asia.td"</span>)</span>
+<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">eval</span>(algo)</span>
+<span id="cb9-6"><a href="#cb9-6"></a>obsvars, obsvals <span class="op">=</span> JunctionTrees.<span class="fu">read_uai_evid_file</span>(<span class="st">"problems/asia/asia.uai.evid"</span>)</span>
+<span id="cb9-7"><a href="#cb9-7"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>(obsvars, obsvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>8-element Vector{Factor{Float64, 1}}:
+ Factor{Float64, 1}((1,), [1.0, 0.0])
+ Factor{Float64, 1}((2,), [0.2260315661762265, 0.7739684338237734])
+ Factor{Float64, 1}((3,), [0.4285768744696137, 0.5714231255303862])
+ Factor{Float64, 1}((4,), [0.909656777467388, 0.09034322253261202])
+ Factor{Float64, 1}((5,), [0.07898554850587863, 0.9210144514941213])
+ Factor{Float64, 1}((6,), [0.5339356164139644, 0.4660643835860356])
+ Factor{Float64, 1}((7,), [1.0, 0.0])
+ Factor{Float64, 1}((8,), [0.2988659108627053, 0.7011340891372948])</code></pre>
+</div>
+</div>
+</section>
+<section id="section-3" class="level2">
+<h2 class="anchored" data-anchor-id="section-3"></h2>
+<p>You can specify up to which stage the algo should be generated:</p>
+<div class="cell" data-output-location="fragment" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1"></a>forward_pass_expr <span class="op">=</span> <span class="fu">compile_algo</span>(</span>
+<span id="cb11-2"><a href="#cb11-2"></a>                        <span class="st">"problems/asia/asia.uai"</span>,</span>
+<span id="cb11-3"><a href="#cb11-3"></a>                        last_stage <span class="op">=</span> ForwardPass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>:(function run_algo(obsvars::Vector{Int64}, obsvals::Vector{Int64})
+      begin
+          pot_1 = Factor{Float64, 2}((1, 7), [0.128 0.872; 0.92 0.08])
+          pot_2 = Factor{Float64, 2}((4, 8), [0.127 0.372; 0.372 0.127])
+          pot_3 = Factor{Float64, 2}((3, 4), [0.206 0.293; 0.293 0.206])
+          pot_4 = Factor{Float64, 3}((4, 5, 7), [0.027965999999999998 0.14867999999999998; 0.011455 0.060899999999999996;;; 0.060899999999999996 0.011455; 0.14867999999999998 0.027965999999999998])
+          pot_5 = Factor{Float64, 3}((2, 4, 6), [0.014457 0.07686; 0.13272 0.024964;;; 0.024964 0.13272; 0.07686 0.014457])
+          pot_6 = Factor{Float64, 3}((4, 5, 6), [0.007124 0.10642499999999999; 0.129602 0.00585;;; 0.00585 0.129602; 0.10642499999999999 0.007124])
+      end
+      begin
+          msg_1_4 = sum(pot_1, 1)
+          msg_2_4 = sum(pot_2, 8)
+          msg_3_5 = sum(pot_3, 3)
+          msg_5_6 = sum(prod(msg_3_5, pot_5), 2)
+          msg_6_4 = sum(prod(msg_5_6, pot_6), 6)
+      end
+  end)</code></pre>
+</div>
+</div>
+</section>
+<section id="benchmarks" class="level2">
+<h2 class="anchored" data-anchor-id="benchmarks">Benchmarks</h2>
+</section>
+</section>
+<section id="the-end" class="level1">
+<h1>The end</h1>
+</section>
+<section id="questions" class="level1">
+<h1>Questions?</h1>
+</section>
+
+</main>
+<!-- /main column -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
