@@ -386,10 +386,8 @@ junction tree.
 ## Message passing
 
 ::: {.notes}
-
 A cluster passes a message to a neighbor only after it has received messages
 from all its *other* neighbors.
-
 :::
 
 ![](figures/message-passing/output-00.svg){width=60% fig-align="center"}
