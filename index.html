@@ -383,34 +383,32 @@
 
 <section id="title-slide" class="center">
   <h1 class="title">JunctionTrees.jl</h1>
-  <p class="subtitle">Efficient Bayesian Inference in Discrete Graphical Models</p>
+  <p class="subtitle">Efficient Bayesian Inference in Probabilistic Graphical Models</p>
 </section>
 
-<section id="section" class="slide level2 center">
+<section id="section" class="slide level2 smaller center">
 <h2></h2>
 <div class="r-fit-text">
-<p><strong>Motivating example</strong>: Patient diagnosis</p>
+<p><strong>Motivating example</strong>: patient diagnosis</p>
 </div>
 <div class="columns">
-<div class="column" style="width:85%;">
+<div class="column" style="width:30%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/asia-medical-knowledge.png" style="width:100.0%"></p>
+<p><img data-src="figures/dyspnoea.jpg" style="width:100.0%"></p>
 </figure>
 </div>
-</div><div class="column" style="width:15%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/motivating-example.svg" style="width:100.0%"></p>
-</figure>
+</div><div class="column fragment" style="width:70%;">
+<blockquote>
+<p>Shortness-of-breath (<strong>dyspnoea</strong>) may be due to <strong>tuberculosis</strong>, <strong>lung cancer</strong> or <strong>bronchitis</strong>, or none of them, or more than one of them. A <strong>recent visit to Asia</strong> increases the chances of <strong>tuberculosis</strong>, while <strong>smoking</strong> is known to be a risk factor for both <strong>lung cancer</strong> and <strong>bronchitis</strong>. The results of a single chest <strong>X-ray</strong> do not discriminate between <strong>lung cancer</strong> and <strong>tuberculosis</strong>, as neither does the presence or absence of <strong>dyspnoea</strong>.</p>
+</blockquote>
+<div class="r-fit-text fragment">
+<p><strong>Proposed solution</strong>: a Bayesian approach</p>
 </div>
 </div>
 </div>
-<div class="fragment">
-<p><strong>Proposed solution</strong>: A Bayesian approach</p>
 <div class="footer">
-<p>“Local Computations with Probabilities on Graphical Structures and their Application to Expert Systems” by S. L. LAURITZEN and D. J. SPIEGELHALTER</p>
-</div>
+<p><em>Local Computations with Probabilities on Graphical Structures and their Application to Expert Systems</em> by S. L. LAURITZEN and D. J. SPIEGELHALTER (1988)</p>
 </div>
 </section>
 <section id="the-asia-network" class="slide level2 smaller center">
@@ -460,15 +458,15 @@
 </tbody>
 </table>
 </div><div class="column" style="width:40%;">
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/bayesian-network/output-1.svg" class="fragment" style="width:100.0%"></p>
-</figure>
-</div>
 <div class="fragment">
 <span class="math display">\[\begin{gather*}
   P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
 \end{gather*}\]</span>
+</div>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/bayesian-network/output-1.svg" class="fragment" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
 </div>
@@ -520,24 +518,33 @@
 </tbody>
 </table>
 </div><div class="column" style="width:40%;">
+<span class="math display">\[\begin{gather*}
+  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
+\end{gather*}\]</span>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/bayesian-network/output-2.svg" style="width:100.0%"></p>
 </figure>
 </div>
-<span class="math display">\[\begin{gather*}
-  P({\bf V}) = \prod_{V \in {\bf V}} P(V \mid parents(V))
-\end{gather*}\]</span>
 </div>
 </div>
 </section>
-<section id="problem-satement" class="slide level2 center">
-<h2>Problem satement</h2>
+<section id="problem-statement" class="slide level2 smaller center">
+<h2>Problem statement</h2>
 <ol type="1">
-<li class="fragment"><p>Calculate the probaility that the patient has of ha deseases given a set of observations.</p></li>
-<li class="fragment"><p>Do this in an efficient manner</p></li>
+<li class="fragment"><p>Given that a patient has <strong>dyspnoea</strong> and has <strong>recently visited Asia</strong>, calculate the probability that this person has <strong>bronchitis</strong>, <strong>lung cancer</strong> or <strong>tuberculosis</strong>.</p></li>
+<li class="fragment"><p>More generally, given a set of random variables and their joint density, compute one or more conditional densities given observations.</p></li>
+<li class="fragment"><p>Do this <strong>efficiently</strong>.</p></li>
 </ol>
-<p>Solution: JunctionTrees.jl <img data-src="figures/junction-trees-logo-short.png" class="absolute" style="top: 300px; left: 320px; width: 5.1%; "></p>
+<div class="columns fragment">
+<div class="column" style="width:70%;">
+<div class="r-fit-text">
+<p><strong>Proposed solution</strong>: JunctionTrees.jl</p>
+</div>
+</div><div class="column" style="width:30%;">
+<p><img data-src="figures/junction-trees-logo-short.png" class="absolute" style="top: 345px; left: 750px; width: 5.1%; "></p>
+</div>
+</div>
 </section>
 <section id="outline" class="slide level2 center">
 <h2>Outline</h2>
@@ -545,7 +552,7 @@
 <ul>
 <li>The inference problem</li>
 <li>The junction tree algorithm</li>
-<li>JunctionTrees.jl <img data-src="figures/junction-trees-logo-short.png" class="absolute" style="top: 300px; left: 320px; width: 5.1%; "></li>
+<li>JunctionTrees.jl <img data-src="figures/junction-trees-logo-short.png" class="absolute" style="top: 235px; left: 320px; width: 5.1%; "></li>
 </ul>
 </div>
 </section>
@@ -609,6 +616,19 @@
 </section>
 <section id="moralization" class="slide level2 center" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Moralization</h2>
+<aside class="notes">
+<p>Marry the parents of each variable and drop the directions of the edges.</p>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="columns">
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
@@ -673,7 +693,7 @@
 </div><div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/triangulated-graph/output.svg" style="width:80.0%"></p>
+<p><img data-src="figures/triangulated-graph/output-1.svg" style="width:80.0%"></p>
 </figure>
 </div>
 </div>
@@ -684,7 +704,34 @@
 <h2 data-id="quarto-animate-title">Triangulated graph</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/triangulated-graph/output.svg" style="width:60.0%"></p>
+<p><img data-src="figures/triangulated-graph/output-1.svg" style="width:60.0%"></p>
+</figure>
+</div>
+</section>
+<section id="maximal-cliques" class="slide level2 center" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Maximal cliques</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/triangulated-graph/output-1.svg" style="width:80.0%"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/triangulated-graph/output-2.svg" style="width:80.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+<p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 200px; left: 490px; width: 5%; "></p>
+</section>
+<section id="maximal-cliques-1" class="slide level2 center" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Maximal cliques</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/triangulated-graph/output-2.svg" style="width:60.0%"></p>
 </figure>
 </div>
 </section>
@@ -707,7 +754,7 @@
 <div class="column" style="width:50%;">
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/triangulated-graph/output.svg" style="width:80.0%"></p>
+<p><img data-src="figures/triangulated-graph/output-2.svg" style="width:80.0%"></p>
 </figure>
 </div>
 </div><div class="column" style="width:50%;">
@@ -719,6 +766,9 @@
 </div>
 </div>
 <p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 200px; left: 490px; width: 5%; "></p>
+<div class="footer">
+<p><em>Optimal junction trees</em> by Finn V. JENSEN and Frank JENSEN (1994).</p>
+</div>
 </section>
 <section id="junction-tree" class="slide level2 center" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Junction tree</h2>
@@ -768,15 +818,17 @@
 </section>
 <section id="observation-entry" class="slide level2 smaller center">
 <h2>Observation entry</h2>
+<p>Suppose we observe that <span class="math inline">\(D=0\)</span></p>
+<div class="fragment">
 <div class="columns">
 <div class="column" style="width:33%;">
 <table>
 <thead>
 <tr class="header">
-<th>F</th>
-<th>B</th>
-<th>E</th>
-<th>Element</th>
+<th><span class="math inline">\(D\)</span></th>
+<th><span class="math inline">\(E\)</span></th>
+<th><span class="math inline">\(B\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\phi\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -784,84 +836,60 @@
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>0.25</td>
+<td style="text-align: center;">0.25</td>
 </tr>
 <tr class="even">
 <td>0</td>
 <td>0</td>
 <td>1</td>
-<td>0.35</td>
+<td style="text-align: center;">0.35</td>
 </tr>
 <tr class="odd">
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>0.08</td>
+<td style="text-align: center;">0.08</td>
 </tr>
 <tr class="even">
 <td>0</td>
 <td>1</td>
 <td>1</td>
-<td>0.16</td>
+<td style="text-align: center;">0.16</td>
 </tr>
 <tr class="odd">
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.05</td>
+<td style="text-align: center;">0.05</td>
 </tr>
 <tr class="even">
 <td>1</td>
 <td>0</td>
 <td>1</td>
-<td>0.07</td>
+<td style="text-align: center;">0.07</td>
 </tr>
 <tr class="odd">
 <td>1</td>
 <td>1</td>
 <td>0</td>
-<td>0.00</td>
+<td style="text-align: center;">0.00</td>
 </tr>
 <tr class="even">
 <td>1</td>
 <td>1</td>
 <td>1</td>
-<td>0.00</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0.15</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>0</td>
-<td>1</td>
-<td>0.21</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>0.09</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>1</td>
-<td>1</td>
-<td>0.18</td>
+<td style="text-align: center;">0.00</td>
 </tr>
 </tbody>
 </table>
-</div><div class="column" style="width:33%;">
+</div><div class="column fragment" style="width:33%;">
 <table>
 <thead>
 <tr class="header">
-<th>F</th>
-<th>B</th>
-<th>E</th>
-<th>Element</th>
+<th><span class="math inline">\(D\)</span></th>
+<th><span class="math inline">\(E\)</span></th>
+<th><span class="math inline">\(B\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\phi\)</span></th>
 </tr>
 </thead>
 <tbody>
@@ -869,121 +897,89 @@
 <td>0</td>
 <td>0</td>
 <td>0</td>
-<td>0.25</td>
+<td style="text-align: center;">0.25</td>
 </tr>
 <tr class="even">
 <td>0</td>
 <td>0</td>
 <td>1</td>
-<td><strong>0.00</strong></td>
+<td style="text-align: center;">0.35</td>
 </tr>
 <tr class="odd">
 <td>0</td>
 <td>1</td>
 <td>0</td>
-<td>0.08</td>
+<td style="text-align: center;">0.08</td>
 </tr>
 <tr class="even">
 <td>0</td>
 <td>1</td>
 <td>1</td>
-<td><strong>0.00</strong></td>
+<td style="text-align: center;">0.16</td>
 </tr>
 <tr class="odd">
 <td>1</td>
 <td>0</td>
 <td>0</td>
-<td>0.05</td>
+<td style="text-align: center;"><del>0.05</del></td>
 </tr>
 <tr class="even">
 <td>1</td>
 <td>0</td>
 <td>1</td>
-<td><strong>0.00</strong></td>
+<td style="text-align: center;"><del>0.07</del></td>
 </tr>
 <tr class="odd">
 <td>1</td>
 <td>1</td>
 <td>0</td>
-<td>0.00</td>
+<td style="text-align: center;"><del>0.00</del></td>
 </tr>
 <tr class="even">
 <td>1</td>
 <td>1</td>
 <td>1</td>
-<td><strong>0.00</strong></td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>0</td>
-<td>0</td>
-<td>0.15</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>0</td>
-<td>1</td>
-<td><strong>0.00</strong></td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>1</td>
-<td>0</td>
-<td>0.09</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>1</td>
-<td>1</td>
-<td><strong>0.00</strong></td>
+<td style="text-align: center;"><del>0.00</del></td>
 </tr>
 </tbody>
 </table>
-</div><div class="column" style="width:33%;">
+<p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 250px; left: 270px; width: 5%; "></p>
+</div><div class="column fragment" style="width:33%;">
 <table>
 <thead>
 <tr class="header">
-<th>F</th>
-<th>B</th>
-<th>Element</th>
+<th><span class="math inline">\(E\)</span></th>
+<th><span class="math inline">\(B\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(\phi\)</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
 <td>0</td>
 <td>0</td>
-<td>0.25</td>
+<td style="text-align: center;">0.25</td>
 </tr>
 <tr class="even">
 <td>0</td>
 <td>1</td>
-<td>0.08</td>
+<td style="text-align: center;">0.35</td>
 </tr>
 <tr class="odd">
 <td>1</td>
 <td>0</td>
-<td>0.05</td>
+<td style="text-align: center;">0.08</td>
 </tr>
 <tr class="even">
 <td>1</td>
 <td>1</td>
-<td>0.00</td>
-</tr>
-<tr class="odd">
-<td>2</td>
-<td>0</td>
-<td>0.15</td>
-</tr>
-<tr class="even">
-<td>2</td>
-<td>1</td>
-<td>0.09</td>
+<td style="text-align: center;">0.16</td>
 </tr>
 </tbody>
 </table>
+<p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 250px; left: 615px; width: 5%; "></p>
 </div>
 </div>
-<p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 300px; left: 280px; width: 5%; "> <img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 300px; left: 625px; width: 5%; "></p>
+</div>
 </section>
 <section id="overview-4" class="slide level2 center">
 <h2>Overview</h2>
@@ -993,10 +989,29 @@
 </figure>
 </div>
 </section>
-<section id="message-passing" class="slide level2 center">
+<section id="message-passing" class="slide level2 smaller center">
 <h2>Message passing</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/message-passing/output-00.svg" style="width:50.0%"></p>
+</figure>
+</div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 <aside class="notes">
-<p>A cluster passes a message to a neighbor only after it has received messages from all its <em>other</em> neighbors.</p>
+<ul>
+<li>Represents the local computations that are necessary to spread each cluster’s information with every other cluster in the graph.</li>
+<li>Designate an arbitrary cluster as the <em>root</em>.</li>
+<li>This gives direction to the edges.</li>
+<li>Two passes: <em>inward</em> and <em>outward</em>.
+<ul>
+<li>Inward pass: each cluster passes a message to its <em>parent</em>.</li>
+<li>Backward pass: each cluster passes a message to each of its <em>children</em>.</li>
+</ul></li>
+<li>A cluster can only pass a message to a neighbor after it has received messages from all <em>other</em> neighbors.</li>
+</ul>
 <style type="text/css">
         span.MJX_Assistive_MathML {
           position:absolute!important;
@@ -1008,91 +1023,78 @@
           overflow: hidden!important;
           display:block!important;
       }</style></aside>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/message-passing/output-00.svg" style="width:60.0%"></p>
-</figure>
-</div>
 </section>
-<section id="message-passing-1" class="slide level2 center">
+<section id="message-passing-1" class="slide level2 smaller center">
 <h2>Message passing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/message-passing/output-01.svg" style="width:60.0%"></p>
+<p><img data-src="figures/message-passing/output-01.svg" style="width:50.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 </section>
-<section id="message-passing-2" class="slide level2 center">
+<section id="message-passing-2" class="slide level2 smaller center">
 <h2>Message passing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/message-passing/output-02.svg" style="width:60.0%"></p>
+<p><img data-src="figures/message-passing/output-02.svg" style="width:50.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 </section>
-<section id="message-passing-3" class="slide level2 center">
+<section id="message-passing-3" class="slide level2 smaller center">
 <h2>Message passing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/message-passing/output-03.svg" style="width:60.0%"></p>
+<p><img data-src="figures/message-passing/output-05.svg" style="width:50.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 </section>
-<section id="message-passing-4" class="slide level2 center">
+<section id="message-passing-4" class="slide level2 smaller center">
 <h2>Message passing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/message-passing/output-04.svg" style="width:60.0%"></p>
+<p><img data-src="figures/message-passing/output-06.svg" style="width:50.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 </section>
-<section id="message-passing-5" class="slide level2 center">
+<section id="message-passing-5" class="slide level2 smaller center">
 <h2>Message passing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/message-passing/output-05.svg" style="width:60.0%"></p>
+<p><img data-src="figures/message-passing/output-07.svg" style="width:50.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 </section>
-<section id="message-passing-6" class="slide level2 center">
+<section id="message-passing-6" class="slide level2 smaller center">
 <h2>Message passing</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
-<p><img data-src="figures/message-passing/output-06.svg" style="width:60.0%"></p>
+<p><img data-src="figures/message-passing/output-10.svg" style="width:50.0%"></p>
 </figure>
 </div>
-</section>
-<section id="message-passing-7" class="slide level2 center">
-<h2>Message passing</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/message-passing/output-07.svg" style="width:60.0%"></p>
-</figure>
-</div>
-</section>
-<section id="message-passing-8" class="slide level2 center">
-<h2>Message passing</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/message-passing/output-08.svg" style="width:60.0%"></p>
-</figure>
-</div>
-</section>
-<section id="message-passing-9" class="slide level2 center">
-<h2>Message passing</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/message-passing/output-09.svg" style="width:60.0%"></p>
-</figure>
-</div>
-</section>
-<section id="message-passing-10" class="slide level2 center">
-<h2>Message passing</h2>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/message-passing/output-10.svg" style="width:60.0%"></p>
-</figure>
-</div>
+<p><span class="math display">\[\begin{equation}
+  \phi_{{\bf X} \rightarrow {\bf Y}} =
+  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
+\end{equation}\]</span></p>
 <aside class="notes">
 <p>Mention that some of these messages can be computed at compile time.</p>
 <style type="text/css">
@@ -1117,6 +1119,24 @@
 </section>
 <section id="marginalization" class="slide level2 smaller center">
 <h2>Marginalization</h2>
+<aside class="notes">
+<ul>
+<li>We marginalize each variable of interest from a sepset or cluster that contains it.</li>
+<li>Suppose we are interested in variables <span class="math inline">\(A\)</span>, <span class="math inline">\(B\)</span>, and <span class="math inline">\(C\)</span>.</li>
+<li>To marginalize a variable from a we perform a product between the incoming messages and the cluster potential, and sum out all other variables.</li>
+<li>To marginalize a variable from a we perform a product between the two messages incoming messages and sum out all other variables.</li>
+</ul>
+<style type="text/css">
+        span.MJX_Assistive_MathML {
+          position:absolute!important;
+          clip: rect(1px, 1px, 1px, 1px);
+          padding: 1px 0 0 0!important;
+          border: 0!important;
+          height: 1px!important;
+          width: 1px!important;
+          overflow: hidden!important;
+          display:block!important;
+      }</style></aside>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/marginalization/output-1.svg" style="width:60.0%"></p>
@@ -1125,39 +1145,39 @@
 </section>
 <section id="marginalization-1" class="slide level2 smaller center">
 <h2>Marginalization</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/marginalization/output-2.svg" style="width:60.0%"></p>
+</figure>
+</div>
 <p><span class="math display">\[\begin{gather*}
 p(B, A=a, D=d) = \sum_{L} ~~~~~~~ \times
 \end{gather*}\]</span></p>
-<p><img data-src="figures/circled-messages/6.svg" class="absolute" style="top: 70px; left: 665px; width: 5%; "> <img data-src="figures/circled-messages/5.svg" class="absolute" style="top: 90px; left: 735px; width: 5%; "></p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="figures/marginalization/output-2.svg" style="width:60.0%"></p>
-</figure>
-</div>
+<p><img data-src="figures/circled-messages/6.svg" class="absolute" style="top: 465px; left: 665px; width: 5%; "> <img data-src="figures/circled-messages/5.svg" class="absolute" style="top: 485px; left: 735px; width: 5%; "></p>
 </section>
 <section id="marginalization-2" class="slide level2 smaller center">
 <h2>Marginalization</h2>
-<p><span class="math display">\[\begin{gather*}
-p(L, A=a, D=d) = \sum_{B} ~~~~~~~ \times
-\end{gather*}\]</span></p>
-<p><img data-src="figures/circled-messages/6.svg" class="absolute" style="top: 70px; left: 665px; width: 5%; "> <img data-src="figures/circled-messages/5.svg" class="absolute" style="top: 90px; left: 735px; width: 5%; "></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/marginalization/output-2.svg" style="width:60.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{gather*}
+p(L, A=a, D=d) = \sum_{B} ~~~~~~~ \times
+\end{gather*}\]</span></p>
+<p><img data-src="figures/circled-messages/6.svg" class="absolute" style="top: 465px; left: 665px; width: 5%; "> <img data-src="figures/circled-messages/5.svg" class="absolute" style="top: 485px; left: 735px; width: 5%; "></p>
 </section>
 <section id="marginalization-3" class="slide level2 smaller center">
 <h2>Marginalization</h2>
-<p><span class="math display">\[\begin{gather*}
-p(T, A=a, D=d) = ~~~~~~~ \times
-\end{gather*}\]</span></p>
-<p><img data-src="figures/circled-messages/1.svg" class="absolute" style="top: 85px; left: 635px; width: 5%; "> <img data-src="figures/circled-messages/9.svg" class="absolute" style="top: 70px; left: 720px; width: 5%; "></p>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/marginalization/output-3.svg" style="width:60.0%"></p>
 </figure>
 </div>
+<p><span class="math display">\[\begin{gather*}
+p(T, A=a, D=d) = ~~~~~~~ \times
+\end{gather*}\]</span></p>
+<p><img data-src="figures/circled-messages/1.svg" class="absolute" style="top: 480px; left: 635px; width: 5%; "> <img data-src="figures/circled-messages/9.svg" class="absolute" style="top: 460px; left: 720px; width: 5%; "></p>
 </section>
 <section id="overview-6" class="slide level2 center">
 <h2>Overview</h2>
@@ -1167,7 +1187,7 @@ p(T, A=a, D=d) = ~~~~~~~ \times
 </figure>
 </div>
 </section>
-<section id="normalization" class="slide level2 center">
+<section id="normalization" class="slide level2 smaller center">
 <h2>Normalization</h2>
 <aside class="notes">
 <p><span class="math display">\[\begin{gather*}
@@ -1233,53 +1253,73 @@ P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e
 </table>
 </div>
 </div>
-<p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 180px; left: 410px; width: 5%; "></p>
+<p><img data-src="figures/right-arrow-unfilled.svg" class="absolute" style="top: 150px; left: 360px; width: 5%; "></p>
 </section></section>
 <section>
 <section id="junctiontrees.jl" class="title-slide slide level1 center">
 <h1>JunctionTrees.jl</h1>
 <p><img data-src="figures/junction-trees-logo-short.png" class="absolute" style="top: -10px; left: 580px; "></p>
 </section>
-<section id="features" class="slide level2 center">
+<section id="features" class="slide level2 smaller center">
 <h2>Features</h2>
+<div class="columns">
+<div class="column" style="width:45%;">
 <ul>
 <li class="fragment">Posterior marginal computation of discrete variables given evidence.</li>
-<li class="fragment">Metaprogramming-based design that separates the algorithm into a compilation and a runtime phase.</li>
+<li class="fragment">Metaprogramming-based design that separates the algorithm into a <em>compilation</em> and a <em>runtime</em> phase.</li>
+<li class="fragment">Visualization of junction trees, Bayesian networks and Markov random fields.</li>
 </ul>
+</div><div class="column" style="width:55%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/promedus-34-td.svg" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="compiled-based-implementation" class="slide level2 center" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Compiled-based implementation</h2>
+<section id="performance-comparison" class="slide level2 center">
+<h2>Performance comparison</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/benchmarks/merlin-vs-junctiontrees.svg" style="width:100.0%"></p>
+</figure>
+</div>
+</section>
+<section id="compile-time-vs-runtime" class="slide level2 center" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Compile-time vs runtime</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/jta-overview/output-2.svg" style="width:55.0%"></p>
 </figure>
 </div>
 </section>
-<section id="compiled-based-implementation-1" class="slide level2 center" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Compiled-based implementation</h2>
+<section id="compile-time-vs-runtime-1" class="slide level2 center" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Compile-time vs runtime</h2>
 <div class="quarto-figure quarto-figure-center">
 <figure>
 <p><img data-src="figures/jta-overview/output-3.svg" style="width:55.0%"></p>
 </figure>
 </div>
 </section>
-<section id="basic-usage" class="slide level2 center">
+<section id="basic-usage" class="slide level2 smaller center">
 <h2>Basic usage</h2>
 <p><strong>Step 1</strong>: Generate the algorithm</p>
-<div class="cell" data-execution_count="1">
+<div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">using</span> <span class="bu">JunctionTrees</span></span>
-<span id="cb1-2"><a href="#cb1-2"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(<span class="st">"problems/asia/asia.uai"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2"></a></span>
+<span id="cb1-3"><a href="#cb1-3"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(<span class="st">"asia/asia.uai"</span>; uai_evid_filepath<span class="op">=</span><span class="st">"asia/asia.uai.evid"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="1">
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell fragment" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="57">
 <pre><code>:(function run_algo(obsvars::Vector{Int64}, obsvals::Vector{Int64})
       begin
-          pot_1 = Factor{Float64, 2}((1, 7), [0.128 0.872; 0.92 0.08])
-          pot_2 = Factor{Float64, 2}((4, 8), [0.127 0.372; 0.372 0.127])
-          pot_3 = Factor{Float64, 2}((3, 4), [0.206 0.293; 0.293 0.206])
-          pot_4 = Factor{Float64, 3}((4, 5, 7), [0.027965999999999998 0.14867999999999998; 0.011455 0.060899999999999996;;; 0.060899999999999996 0.011455; 0.14867999999999998 0.027965999999999998])
-          pot_5 = Factor{Float64, 3}((2, 4, 6), [0.014457 0.07686; 0.13272 0.024964;;; 0.024964 0.13272; 0.07686 0.014457])
-          pot_6 = Factor{Float64, 3}((4, 5, 6), [0.007124 0.10642499999999999; 0.129602 0.00585;;; 0.00585 0.129602; 0.10642499999999999 0.007124])
+          pot_1 = redu(Factor{Float64, 2}((1, 7), [...]), (1, 7), (obsvals[1], obsvals[2]))
+          pot_2 = Factor{Float64, 2}((4, 8), [...])
+          pot_3 = Factor{Float64, 2}((3, 4), [...])
+          pot_4 = redu(Factor{Float64, 3}((4, 5, 7), [...]), (7,), (obsvals[2],))
+          pot_5 = Factor{Float64, 3}((2, 4, 6), [...])
+          pot_6 = Factor{Float64, 3}((4, 5, 6), [...])
       end
       begin
           msg_1_4 = sum(pot_1, 1)
@@ -1324,34 +1364,34 @@ P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e
 </div>
 </div>
 </section>
-<section id="section-1" class="slide level2 center">
+<section id="section-1" class="slide level2 smaller center">
 <h2></h2>
 <p><strong>Step 2</strong>: Evaluate the algorithm</p>
-<div class="cell" data-execution_count="2">
+<div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb3-1"><a href="#cb3-1"></a><span class="fu">eval</span>(algo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="2">
-<div class="cell-output cell-output-display" data-execution_count="19">
+<div class="cell fragment" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="58">
 <pre><code>run_algo (generic function with 1 method)</code></pre>
 </div>
 </div>
 <div class="fragment">
 <p><strong>Step 3</strong>: Run the algorithm</p>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1"></a>obsvars, obsvals <span class="op">=</span> <span class="dt">Int64</span>[], <span class="dt">Int64</span>[]</span>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb5-1"><a href="#cb5-1"></a>obsvars, obsvals <span class="op">=</span> JunctionTrees.<span class="fu">read_uai_evid_file</span>(<span class="st">"asia/asia.uai.evid"</span>)</span>
 <span id="cb5-2"><a href="#cb5-2"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>(obsvars, obsvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="3">
-<div class="cell-output cell-output-display" data-execution_count="20">
+<div class="cell fragment" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="59">
 <pre><code>8-element Vector{Factor{Float64, 1}}:
- Factor{Float64, 1}((1,), [0.5, 0.5])
- Factor{Float64, 1}((2,), [0.48684951517645886, 0.5131504848235411])
- Factor{Float64, 1}((3,), [0.49657168997454143, 0.5034283100254586])
- Factor{Float64, 1}((4,), [0.5196635253184346, 0.4803364746815654])
- Factor{Float64, 1}((5,), [0.47979130632828215, 0.5202086936717178])
- Factor{Float64, 1}((6,), [0.5016289095878703, 0.4983710904121298])
- Factor{Float64, 1}((7,), [0.524, 0.476])
- Factor{Float64, 1}((8,), [0.4903455637214099, 0.5096544362785901])</code></pre>
+ Factor{Float64, 1}((1,), [...])
+ Factor{Float64, 1}((2,), [...])
+ Factor{Float64, 1}((3,), [...])
+ Factor{Float64, 1}((4,), [...])
+ Factor{Float64, 1}((5,), [...])
+ Factor{Float64, 1}((6,), [...])
+ Factor{Float64, 1}((7,), [...])
+ Factor{Float64, 1}((8,), [...])</code></pre>
 </div>
 </div>
 </div>
@@ -1359,89 +1399,129 @@ P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e
 <p>These are the <em>posterior marginals</em> for each variable.</p>
 </div>
 </section>
-<section id="section-2" class="slide level2 center">
+<section id="section-2" class="slide level2 smaller center">
 <h2></h2>
-<p>We can also generate an algorithm that takes online evidence for a subset of the variables:</p>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="|3,5,6"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(</span>
-<span id="cb7-2"><a href="#cb7-2"></a>         <span class="st">"problems/asia/asia.uai"</span>,</span>
-<span id="cb7-3"><a href="#cb7-3"></a>         uai_evid_filepath <span class="op">=</span> <span class="st">"problems/asia/asia.uai.evid"</span>)</span>
-<span id="cb7-4"><a href="#cb7-4"></a><span class="fu">eval</span>(algo)</span>
-<span id="cb7-5"><a href="#cb7-5"></a>obsvars, obsvals <span class="op">=</span> JunctionTrees.<span class="fu">read_uai_evid_file</span>(<span class="st">"problems/asia/asia.uai.evid"</span>)</span>
-<span id="cb7-6"><a href="#cb7-6"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>(obsvars, obsvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell fragment" data-execution_count="4">
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>8-element Vector{Factor{Float64, 1}}:
- Factor{Float64, 1}((1,), [1.0, 0.0])
- Factor{Float64, 1}((2,), [0.2260315661762265, 0.7739684338237736])
- Factor{Float64, 1}((3,), [0.42857687446961373, 0.5714231255303863])
- Factor{Float64, 1}((4,), [0.909656777467388, 0.09034322253261202])
- Factor{Float64, 1}((5,), [0.07898554850587863, 0.9210144514941213])
- Factor{Float64, 1}((6,), [0.5339356164139644, 0.4660643835860355])
- Factor{Float64, 1}((7,), [1.0, 0.0])
- Factor{Float64, 1}((8,), [0.2988659108627053, 0.7011340891372946])</code></pre>
-</div>
-</div>
-</section>
-<section id="section-3" class="slide level2 center">
-<h2></h2>
-<p>An existing junction tree can be used to generate the algo:</p>
+<p>You can pass an existing junction tree to generate the algorithm</p>
 <div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb9" data-code-line-numbers="|4"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb9-1"><a href="#cb9-1"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(</span>
-<span id="cb9-2"><a href="#cb9-2"></a>         <span class="st">"problems/asia/asia.uai"</span>,</span>
-<span id="cb9-3"><a href="#cb9-3"></a>         uai_evid_filepath <span class="op">=</span> <span class="st">"problems/asia/asia.uai.evid"</span>,</span>
-<span id="cb9-4"><a href="#cb9-4"></a>         td_filepath <span class="op">=</span> <span class="st">"problems/asia/asia.td"</span>)</span>
-<span id="cb9-5"><a href="#cb9-5"></a><span class="fu">eval</span>(algo)</span>
-<span id="cb9-6"><a href="#cb9-6"></a>obsvars, obsvals <span class="op">=</span> JunctionTrees.<span class="fu">read_uai_evid_file</span>(<span class="st">"problems/asia/asia.uai.evid"</span>)</span>
-<span id="cb9-7"><a href="#cb9-7"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>(obsvars, obsvals)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7" data-code-line-numbers="|2"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb7-1"><a href="#cb7-1"></a>algo <span class="op">=</span> <span class="fu">compile_algo</span>(<span class="st">"asia/asia.uai"</span>, uai_evid_filepath <span class="op">=</span> <span class="st">"asia/asia.uai.evid"</span>,</span>
+<span id="cb7-2"><a href="#cb7-2"></a>                    td_filepath <span class="op">=</span> <span class="st">"asia/asia.td"</span>)</span>
+<span id="cb7-3"><a href="#cb7-3"></a><span class="fu">eval</span>(algo)</span>
+<span id="cb7-4"><a href="#cb7-4"></a>marginals <span class="op">=</span> <span class="fu">run_algo</span>([<span class="fl">1</span>,<span class="fl">8</span>], [<span class="fl">1</span>,<span class="fl">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell fragment" data-execution_count="5">
-<div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>8-element Vector{Factor{Float64, 1}}:
- Factor{Float64, 1}((1,), [1.0, 0.0])
- Factor{Float64, 1}((2,), [0.2260315661762265, 0.7739684338237734])
- Factor{Float64, 1}((3,), [0.4285768744696137, 0.5714231255303862])
- Factor{Float64, 1}((4,), [0.909656777467388, 0.09034322253261202])
- Factor{Float64, 1}((5,), [0.07898554850587863, 0.9210144514941213])
- Factor{Float64, 1}((6,), [0.5339356164139644, 0.4660643835860356])
- Factor{Float64, 1}((7,), [1.0, 0.0])
- Factor{Float64, 1}((8,), [0.2988659108627053, 0.7011340891372948])</code></pre>
+<div class="fragment">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/benchmarks/minfill-vs-tamaki.svg" style="width:100.0%"></p>
+</figure>
 </div>
 </div>
 </section>
-<section id="section-4" class="slide level2 center">
-<h2></h2>
-<p>You can specify up to which stage the algo should be generated:</p>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb11" data-code-line-numbers="|3"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb11-1"><a href="#cb11-1"></a>forward_pass_expr <span class="op">=</span> <span class="fu">compile_algo</span>(</span>
-<span id="cb11-2"><a href="#cb11-2"></a>                        <span class="st">"problems/asia/asia.uai"</span>,</span>
-<span id="cb11-3"><a href="#cb11-3"></a>                        last_stage <span class="op">=</span> ForwardPass)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="metaprogramming-based-framework" class="slide level2 center">
+<h2>Metaprogramming-based framework</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/metaprogramming-based-framework/output.svg" style="width:90.0%"></p>
+</figure>
 </div>
-<div class="cell fragment" data-execution_count="6">
-<div class="cell-output cell-output-display" data-execution_count="23">
+</section>
+<section id="partial-evaluation" class="slide level2 smaller center">
+<h2>Partial evaluation</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-output-location="fragment" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1"></a><span class="fu">compile_algo</span>(<span class="st">"asia/asia.uai"</span>,</span>
+<span id="cb8-2"><a href="#cb8-2"></a>             uai_evid_filepath<span class="op">=</span><span class="st">"asia/asia.uai.evid"</span>,</span>
+<span id="cb8-3"><a href="#cb8-3"></a>             td_filepath <span class="op">=</span> <span class="st">"asia/asia.td"</span>,</span>
+<span id="cb8-4"><a href="#cb8-4"></a>             last_stage <span class="op">=</span> BackwardPass</span>
+<span id="cb8-5"><a href="#cb8-5"></a>            )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="61">
 <pre><code>:(function run_algo(obsvars::Vector{Int64}, obsvals::Vector{Int64})
       begin
-          pot_1 = Factor{Float64, 2}((1, 7), [0.128 0.872; 0.92 0.08])
-          pot_2 = Factor{Float64, 2}((4, 8), [0.127 0.372; 0.372 0.127])
-          pot_3 = Factor{Float64, 2}((3, 4), [0.206 0.293; 0.293 0.206])
-          pot_4 = Factor{Float64, 3}((4, 5, 7), [0.027965999999999998 0.14867999999999998; 0.011455 0.060899999999999996;;; 0.060899999999999996 0.011455; 0.14867999999999998 0.027965999999999998])
-          pot_5 = Factor{Float64, 3}((2, 4, 6), [0.014457 0.07686; 0.13272 0.024964;;; 0.024964 0.13272; 0.07686 0.014457])
-          pot_6 = Factor{Float64, 3}((4, 5, 6), [0.007124 0.10642499999999999; 0.129602 0.00585;;; 0.00585 0.129602; 0.10642499999999999 0.007124])
+          pot_1 = redu(Factor{Float64, 2}((1, 7), [...]), (1, 7), (obsvals[1], obsvals[2]))
+          pot_2 = Factor{Float64, 3}((2, 5, 6), [...])
+          pot_3 = redu(Factor{Float64, 3}((4, 5, 7), [...]), (7,), (obsvals[2],))
+          pot_4 = Factor{Float64, 0}((), [...])
+          pot_5 = Factor{Float64, 2}((4, 8), [...])
+          pot_6 = Factor{Float64, 3}((2, 3, 4), [...])
       end
       begin
-          msg_1_4 = sum(pot_1, 1)
-          msg_2_4 = sum(pot_2, 8)
-          msg_3_5 = sum(pot_3, 3)
-          msg_5_6 = sum(prod(msg_3_5, pot_5), 2)
-          msg_6_4 = sum(prod(msg_5_6, pot_6), 6)
+          msg_1_3 = sum(pot_1, 1)
+          msg_5_3 = sum(pot_5, 8)
+          msg_3_4 = sum(prod(msg_1_3, msg_5_3, pot_3), 7)
+          msg_6_4 = sum(pot_6, 3)
+          msg_4_2 = sum(prod(msg_3_4, msg_6_4, pot_4), 4)
+      end
+      begin
+          msg_2_4 = sum(pot_2, 6)
+          msg_4_3 = sum(prod(msg_6_4, msg_2_4, pot_4), 2)
+          msg_4_6 = sum(prod(msg_3_4, msg_2_4, pot_4), 5)
+          msg_3_1 = sum(prod(msg_5_3, msg_4_3, pot_3), 4, 5)
+          msg_3_5 = sum(prod(msg_1_3, msg_4_3, pot_3), 5, 7)
       end
   end)</code></pre>
 </div>
 </div>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/partial-evaluation-messages/output-1.svg" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 </section>
-<section id="benchmarks" class="slide level2 center">
-<h2>Benchmarks</h2>
+<section id="partial-evaluation-1" class="slide level2 smaller center">
+<h2>Partial evaluation</h2>
+<div class="columns">
+<div class="column" style="width:60%;">
+<div class="cell" data-output-location="fragment" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource julia number-lines code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1"></a><span class="fu">compile_algo</span>(<span class="st">"asia/asia.uai"</span>,</span>
+<span id="cb10-2"><a href="#cb10-2"></a>             uai_evid_filepath<span class="op">=</span><span class="st">"asia/asia.uai.evid"</span>,</span>
+<span id="cb10-3"><a href="#cb10-3"></a>             last_stage <span class="op">=</span> BackwardPass,</span>
+<span id="cb10-4"><a href="#cb10-4"></a>             apply_partial_evaluation <span class="op">=</span> <span class="cn">true</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<pre><code>:(function run_algo(obsvars::Vector{Int64}, obsvals::Vector{Int64})
+      begin
+          pot_1 = Factor{Float64, 2}((1, 7), [...])
+          pot_2 = Factor{Float64, 2}((4, 8), [...])
+          pot_3 = Factor{Float64, 2}((3, 4), [...])
+          pot_4 = Factor{Float64, 3}((4, 5, 7), [...])
+          pot_5 = Factor{Float64, 3}((2, 4, 6), [...])
+          pot_6 = Factor{Float64, 3}((4, 5, 6), [...])
+      end
+      begin
+          msg_1_4 = sum(redu(pot_1, (1,), (obsvals[1],)), 1)
+          msg_2_4 = Factor{Float64, 1}((4,), [...])
+          msg_3_5 = Factor{Float64, 1}((4,), [...])
+          msg_5_6 = Factor{Float64, 2}((4, 6), [...])
+          msg_6_4 = Factor{Float64, 2}((4, 5), [...])
+      end
+      begin
+          msg_4_1 = Factor{Float64, 1}((7,), [...])
+          msg_4_2 = sum(redu(prod(msg_1_4, msg_6_4, pot_4), (7,), (obsvals[2],)), 5, 7)
+          msg_4_6 = sum(redu(prod(msg_1_4, msg_2_4, pot_4), (7,), (obsvals[2],)), 7)
+          msg_6_5 = sum(prod(msg_4_6, pot_6), 5)
+          msg_5_3 = sum(prod(msg_6_5, pot_5), 2, 6)
+      end
+  end)</code></pre>
+</div>
+</div>
+</div><div class="column" style="width:40%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/partial-evaluation-messages/output-2.svg" style="width:100.0%"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="partial-evaluation-2" class="slide level2 center">
+<h2>Partial evaluation</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="figures/benchmarks/partial-evaluation.svg" style="width:100.0%"></p>
+</figure>
+</div>
 </section></section>
 <section id="the-end" class="title-slide slide level1 center">
 <h1>The end</h1>

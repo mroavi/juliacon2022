@@ -1,0 +1,21 @@
+\usetikzlibrary{positioning}
+\usetikzlibrary{fit}
+\usetikzlibrary{shadows}
+\usetikzlibrary{arrows.meta}
+\usepackage{bm}
+\usepackage{amsmath}
+\usetikzlibrary{backgrounds}
+
+\tikzset {
+  every node/.style={node distance=6mm and 6mm},
+  myroundbox/.style= {
+    rectangle,rounded corners=3mm,drop shadow,minimum height=0.7cm,font=\small,
+    minimum width=\columnwidth*0.4,align=center,fill=white,draw=black,
+  },
+  myrectbox/.style= {
+    rectangle,drop shadow,minimum height=0.7cm,font=\small,
+    minimum width=\columnwidth*0.4,align=center,fill=white,draw=black,
+  },
+  myarrow/.style={=black,-{Stealth[scale=1.5]},shorten >=2pt},
+  surrbox/.style={inner sep=10pt, dashed, draw=black,rounded corners=2mm},
+}
