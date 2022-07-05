@@ -4,7 +4,7 @@ subtitle: Efficient Bayesian Inference in Probabilistic Graphical Models
 #subtitle: Efficient Bayesian Inference in Discrete Graphical Models
 #subtitle: Efficient Inference in Bayesian Networks
 #subtitle: Efficient Bayesian Inference in Discrete Graphical Models
-#author: Martin Roa Villescas and Patrick Wijnings
+author: Martin Roa Villescas
 #date: "27/07/2022"
 #institute: JuliaCon 2022
 #title-slide-attributes:
@@ -43,7 +43,6 @@ jupyter: julia-1.7
 ::: {.column width="70%" .fragment}
 
 <blockquote>
-
 Shortness-of-breath (**dyspnoea**) may be due to **tuberculosis**, **lung
 cancer** or **bronchitis**, or none of them, or more than one of them. A
 **recent visit to Asia** increases the chances of **tuberculosis**, while
@@ -51,11 +50,11 @@ cancer** or **bronchitis**, or none of them, or more than one of them. A
 **bronchitis**. The results of a single chest **X-ray** do not discriminate
 between **lung cancer** and **tuberculosis**, as neither does the presence or
 absence of **dyspnoea**.
-
 </blockquote>
+\
 
-::: {.r-fit-text .fragment}
-**Proposed solution**: a Bayesian approach
+::: {.fragment}
+**Proposed solution**: *a Bayesian approach*
 :::
 
 :::
@@ -145,10 +144,10 @@ absence of **dyspnoea**.
 calculate the probability that this person has **bronchitis**, **lung cancer**
 or **tuberculosis**.
 
-2. More generally, given a set of random variables and their joint density,
-compute one or more conditional densities given observations.
+2. More generally, given a **set of random variables** and their **joint distribution**,
+compute one or more **conditional distributions** given **observations**.
 
-3. Do this **efficiently**.
+3. Do this **efficiently** for practical (large) models.
 
 :::: {.columns .fragment}
 
@@ -165,7 +164,7 @@ compute one or more conditional densities given observations.
 ::::
 
 
-## Outline
+## Outline {visibility="hidden"}
 
 ::: {.nonincremental}
 
@@ -175,7 +174,7 @@ compute one or more conditional densities given observations.
 :::
 
 
-# The inference problem
+# The inference problem {visibility="hidden"}
 
 
 ## The inference problem {visibility="hidden"}
@@ -196,7 +195,7 @@ problem:
 :::
 
 
-## The inference problem
+## The inference problem {visibility="hidden"}
 
 ![](figures/the-inference-problem/output.svg){width=100% fig-align="center"}
 
@@ -211,6 +210,10 @@ An efficient method to perform *Bayesian inference* in general graphs.
 Add reference to the paper.
 Explain the idea of the Junction algorithm.
 Explain that it is a different representatin of the model that allows calculating probabilistic queries more efficiently.
+:::
+
+::: footer
+*Inference in Belief Networks: A Procedural Guide* by C. HUANG and A. DARWICHE (1996).
 :::
 
 ## Overview
@@ -278,7 +281,7 @@ these maximal cliques become the nodes of the final junction tree.
 clique/cluster.
 - The enclosed sets of nodes are maximal cliques which, in this case, become
 the clusters of the junction tree.
-- A clique is a set of variables in which all variables are connected to each
+- A clique is a set of variables all connected to each other.
 other.
 - A maximal clique is a one that is not contained in a larger one.
 :::
@@ -411,7 +414,7 @@ clique.
 ![](figures/jta-overview/output-1-3.svg){width=55% fig-align="center"}
 
 
-## Observation entry {.smaller}
+## Observation entry {.smaller visibility="hidden"}
 
 Suppose we observe that $D=0$
 
@@ -589,7 +592,7 @@ p(B, A=a, D=d) = \sum_{L} ~~~~~~~ \times
 ![](figures/circled-messages/5.svg){width=5% .absolute top=485 left=735}
 
 
-## Marginalization {.smaller}
+## Marginalization {.smaller visibility="hidden"}
 
 ![](figures/marginalization/output-2.svg){width=60% fig-align="center"}
 
@@ -601,7 +604,7 @@ p(L, A=a, D=d) = \sum_{B} ~~~~~~~ \times
 ![](figures/circled-messages/5.svg){width=5% .absolute top=485 left=735}
 
 
-## Marginalization {.smaller}
+## Marginalization {.smaller visibility="hidden"}
 
 ![](figures/marginalization/output-3.svg){width=60% fig-align="center"}
 
@@ -618,7 +621,7 @@ p(T, A=a, D=d) = ~~~~~~~ \times
 ![](figures/jta-overview/output-1-6.svg){width=55% fig-align="center"}
 
 
-## Normalization {.smaller}
+## Normalization {.smaller visibility="hidden"}
 
 ::: {.notes}
 \begin{gather*}
@@ -676,7 +679,7 @@ P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e
 ::::
 
 
-## Performance comparison
+## Runtime performance comparison
 
 ![](figures/benchmarks/merlin-vs-junctiontrees.svg){width=100% fig-align="center"}
 
@@ -691,7 +694,7 @@ P(V \mid {\bf E=e}) = \frac{P(V, {\bf E=e})}{P({\bf E=e})} = \frac{P(V, {\bf E=e
 ![](figures/jta-overview/output-3.svg){width=55% fig-align="center"}
 
 
-## Basic usage {.smaller}
+## Basic usage {.smaller visibility="hidden"}
 
 ```{julia}
 #| output: false
@@ -708,7 +711,7 @@ using JunctionTrees
 algo = compile_algo("asia/asia.uai"; uai_evid_filepath="asia/asia.uai.evid")
 ```
 
-## {.smaller}
+## {.smaller visibility="hidden"}
 
 **Step 2**: Evaluate the algorithm
 
@@ -732,7 +735,7 @@ marginals = run_algo(obsvars, obsvals)
 These are the *posterior marginals* for each variable.
 
 
-## {.smaller}
+## {.smaller visibility="hidden"}
 
 You can pass an existing junction tree to generate the algorithm
 
@@ -758,50 +761,29 @@ marginals = run_algo([1,8], [1,1])
 ## Partial evaluation {.smaller}
 
 
-:::: {.columns}
+![](figures/partial-evaluation-messages/output-1.svg){width=50% fig-align="center"}
 
-::: {.column width="60%"}
-```{julia}
-#| output-location: fragment
-compile_algo("asia/asia.uai",
-             uai_evid_filepath="asia/asia.uai.evid",
-             td_filepath = "asia/asia.td",
-             last_stage = BackwardPass
-            )
-```
-
+::: footer
+*Partial Evaluation in Junction Trees* by M. ROA VILLESCAS et. al. accepted in DSD/SEAA 2022.
 :::
 
-::: {.column width="40%"}
-![](figures/partial-evaluation-messages/output-1.svg){width=100% fig-align="center"}
-:::
-
-::::
 
 ## Partial evaluation {.smaller}
 
-:::: {.columns}
+![](figures/partial-evaluation-messages/output-2.svg){width=50% fig-align="center"}
 
-::: {.column width="60%"}
-```{julia}
-#| output-location: fragment
-compile_algo("asia/asia.uai",
-             uai_evid_filepath="asia/asia.uai.evid",
-             last_stage = BackwardPass,
-             apply_partial_evaluation = true)
-```
-
+::: footer
+*Partial Evaluation in Junction Trees* by M. ROA VILLESCAS et. al. accepted in DSD/SEAA 2022.
 :::
 
-::: {.column width="40%"}
-![](figures/partial-evaluation-messages/output-2.svg){width=100% fig-align="center"}
-:::
-
-::::
 
 ## Partial evaluation 
 
 ![](figures/benchmarks/partial-evaluation.svg){width=100% fig-align="center"}
+
+::: footer
+*Partial Evaluation in Junction Trees* by M. ROA VILLESCAS et. al. accepted in DSD/SEAA 2022.
+:::
 
 
 # The end

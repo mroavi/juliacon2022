@@ -46,13 +46,13 @@ tp = TikzPicture(
   % The various elements are conveniently placed using a matrix:
   \matrix[row sep=1.0cm,column sep=1.0cm] { % column sep=1.0cm causes an Overfull \hbox warning
     % First line
-    \node (lbs) [mybag, asiabag, label={below:{Root}}] {${\bf B}$\\$\{L,B,S\}$};  &
-    \node (lbe) [mybag, asiabag] {${\bf D}$\\$\{L,B,E\}$};                        &
-    \node (deb) [mybag, asiabag] {${\bf F}$\\$\{D,E,B\}$};                       \\
+    \node (lbs) [mybag, asiabag, label={below:{Root}}] {${\bf 2}$\\$\{L,B,S\}$};  &
+    \node (lbe) [mybag, asiabag] {${\bf 4}$\\$\{L,B,E\}$};                        &
+    \node (deb) [mybag, asiabag] {${\bf 6}$\\$\{D,E,B\}$};                       \\
     % Second line
-    \node (at) [mybag, asiabag] {${\bf A}$\\$\{\underset{\sphericalangle}{A},\underset{\sphericalangle}{T}\}$};       &
-    \node (tle) [mybag, asiabag] {${\bf C}$\\$\{\underset{\sphericalangle}{T},L,E\}$};              &
-    \node (ex) [mybag, asiabag] {${\bf E}$\\$\{E,X\}$};                          \\
+    \node (at) [mybag, asiabag] {${\bf 1}$\\$\{\underset{\sphericalangle}{A},\underset{\sphericalangle}{T}\}$};       &
+    \node (tle) [mybag, asiabag] {${\bf 3}$\\$\{\underset{\sphericalangle}{T},L,E\}$};              &
+    \node (ex) [mybag, asiabag] {${\bf 5}$\\$\{E,X\}$};                          \\
   };
 
   % The diagram elements are now connected through lines:

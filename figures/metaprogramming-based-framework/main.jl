@@ -12,7 +12,7 @@ tp = TikzPicture(
     \node[myroundbox,left=of pgm] (qv) {Query Variables};
     \node[myroundbox,right=of pgm] (evar) {Evidence Variables};
     % row 2
-    \node[myrectbox,below=of pgm] (pptc) {PPTC};
+    \node[myrectbox,below=of pgm] (pptc) {JTA};
     % row 3
     \node[myroundbox,below=of pptc] (sup) {Subject Program};
     % row 4
