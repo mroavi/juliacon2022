@@ -54,7 +54,7 @@ absence of **dyspnoea**.
 \
 
 ::: {.fragment}
-**Proposed solution**: *a Bayesian approach*
+**Proposed solution**: a Bayesian approach
 :::
 
 :::
@@ -62,7 +62,7 @@ absence of **dyspnoea**.
 ::::
 
 ::: footer
-*Local Computations with Probabilities on Graphical Structures and their Application to Expert Systems* by S. L. LAURITZEN and D. J. SPIEGELHALTER (1988)
+*Local Computations with Probabilities on Graphical Structures and their Application to Expert Systems* by S. L. LAURITZEN and D. J. SPIEGELHALTER
 :::
 
 
