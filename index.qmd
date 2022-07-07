@@ -479,11 +479,6 @@ Suppose we observe that $D=0$
 
 ![](figures/message-passing/output-00.svg){width=50% fig-align="center"}
 
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
-
 ::: {.notes}
   - Represents the local computations that are necessary to spread each
     cluster's information with every other cluster in the graph.
@@ -500,61 +495,25 @@ Suppose we observe that $D=0$
 
 ![](figures/message-passing/output-01.svg){width=50% fig-align="center"}
 
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
-
-
 ## Message passing {.smaller}
 
 ![](figures/message-passing/output-02.svg){width=50% fig-align="center"}
-
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
-
 
 ## Message passing {.smaller}
 
 ![](figures/message-passing/output-05.svg){width=50% fig-align="center"}
 
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
-
-
 ## Message passing {.smaller}
 
 ![](figures/message-passing/output-06.svg){width=50% fig-align="center"}
-
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
-
 
 ## Message passing {.smaller}
 
 ![](figures/message-passing/output-07.svg){width=50% fig-align="center"}
 
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
-
-
-
 ## Message passing {.smaller}
 
 ![](figures/message-passing/output-10.svg){width=50% fig-align="center"}
-
-\begin{equation}
-  \phi_{{\bf X} \rightarrow {\bf Y}} =
-  \sum_{{\bf X} \setminus {\bf Y}} \psi_{{\bf X}} \prod_{{\bf N} \in \mathcal{N}_{{\bf X} \setminus {\bf Y}}} \phi_{{\bf N} \rightarrow {\bf X}}
-\end{equation}
 
 ::: {.notes}
 Mention that some of these messages can be computed at compile time.
