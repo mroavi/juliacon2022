@@ -1,0 +1,4 @@
+#!/bin/sh
+
+rm -rf ./index_files
+rm -rf ./index.html
