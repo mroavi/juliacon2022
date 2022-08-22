@@ -1,7 +1,7 @@
 JunctionTrees: Bayesian inference in discrete graphical models
 ==============================================================
 
-The presentation is published at https://mroavi.github.io/juliacon-2022/
+The presentation is published at https://mroavi.github.io/juliacon2022/
 
 Abstract:
 ---------
